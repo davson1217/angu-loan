@@ -1,0 +1,99 @@
+<div class="form-container">
+  <ul class="navigator-ul">
+   <app-form-navigator
+     *ngFor="let phase of formPhases" [phase]="phase"
+     [activePhase]="activePhase"
+     (phaseClick)="onPhaseClick(phase)"
+     [loanForm]="loanForm"
+     [phases]="formPhases"
+   ></app-form-navigator>
+  </ul>
+  <div class="app-message-wrapper" *ngIf="formSubmissionError.length || formSubmissionSuccess.loanAmount">
+    <app-alert [formSubmissionError]="formSubmissionError" [formSubmissionSuccess]="formSubmissionSuccess"></app-alert>
+  </div>
+  <form action="" class="application-form" [formGroup]="loanForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="isFirstPhase" class="phases-container">
+      <div class="form-field">
+        <div class="error-wrapper">
+          <app-form-error [control]="loanForm.controls.monthlyIncome" controlName="monthly income"></app-form-error>
+        </div>
+        <div class="field-wrapper">
+          <label for="monthlyIncome">
+            What's your monthly income:
+            <span>{{loanForm.controls.monthlyIncome.value | amount | currency: 'EUR'}}</span>
+          </label>
+          <input
+            id="monthlyIncome"
+            type="number"
+            formControlName="monthlyIncome"
+            [class]="inputClasses.join(' ')"
+          >
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="error-wrapper">
+          <app-form-error [control]="loanForm.controls.requestedAmount" controlName="requested amount"></app-form-error>
+        </div>
+        <div class="field-wrapper">
+          <label for="requestedAmount">How much loan are you requesting:
+            <span>{{loanForm.controls.requestedAmount.value | amount | currency: 'EUR'}}</span>
+          </label>
+          <input id="requestedAmount" type="number" formControlName="requestedAmount" class="form-input">
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="error-wrapper">
+          <app-form-error [control]="loanForm.controls.loanTerm" controlName="loan term"></app-form-error>
+        </div>
+        <div class="field-wrapper">
+          <label for="loanTerm">Specify loan settlement duration (in years):
+            <span>{{loanForm.controls.loanTerm.value | months: 'months'}}</span>
+          </label>
+          <input id="loanTerm" type="number" formControlName="loanTerm" class="form-input">
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isSecondPhase" class="phases-container">
+      <div class="form-field">
+        <div class="error-wrapper">
+          <app-form-error [control]="loanForm.controls.children" controlName="children"></app-form-error>
+        </div>
+        <div class="field-wrapper">
+          <label for="children">How many children do you have?: </label>
+          <select name="children" id="children" formControlName="children" class="form-input">
+            <option [ngValue]="null" disabled>--Select Option--</option>
+            <option *ngFor="let option of childrenOption" [ngValue]="option">{{option}}</option>
+        </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="error-wrapper">
+          <app-form-error [control]="loanForm.controls.coApplicant" controlName="co-applicant"></app-form-error>
+        </div>
+        <div class="field-wrapper">
+          <label for="coApplicant">Do you have a co-applicant?: </label>
+          <select name="coApplicant" id="coApplicant" formControlName="coApplicant" class="form-input">
+            <option [ngValue]="null" disabled>--Select Option--</option>
+            <option *ngFor="let option of coApplicantOption" [ngValue]="option">{{option}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isThirdPhase" class="phases-container">
+<!--      <div class="field-wrapper confirm">-->
+<!--        <label for="confirm">Please check the box and click on the submit button to complete your application: </label>-->
+<!--        <input-->
+<!--          id="confirm"-->
+<!--          class="form-input"-->
+<!--          type="checkbox"-->
+<!--          formControlName="confirm"-->
+<!--          [checked]="isDisabled"-->
+<!--          [disabled]="!loanForm.valid"-->
+<!--        >-->
+<!--      </div>-->
+    </div>
+    <div class="button-wrapper">
+      <app-form-button [loanForm]="loanForm" (click)="onFormButtonClick()"></app-form-button>
+    </div>
+  </form>
+</div>

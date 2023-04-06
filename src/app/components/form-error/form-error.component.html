@@ -1,0 +1,14 @@
+<div *ngIf="control.invalid && (control.dirty || control.touched)" class="error-container">
+  <div *ngIf="control.errors?.['required']">
+    {{controlName | titlecase}} is required.
+  </div>
+  <div *ngIf="control.errors?.['monthlyIncome']">
+    {{control.errors?.['monthlyIncome']?.min}}
+  </div>
+  <div *ngIf="control.errors?.['requestedAmount']">
+    {{control.errors?.['requestedAmount']?.min}}
+  </div>
+  <div *ngIf="control.errors?.['loanTerm']">
+    {{control.errors?.['loanTerm']?.min || control.errors?.['loanTerm']?.max}}
+  </div>
+</div>

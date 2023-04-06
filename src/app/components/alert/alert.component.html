@@ -1,0 +1,7 @@
+<ul *ngIf="formSubmissionError.length">
+  <li *ngFor="let error of formSubmissionError">{{error.params}}: {{error.message}}</li>
+</ul>
+<div *ngIf="formSubmissionSuccess.interestRate">
+  Your loan request of {{formSubmissionSuccess.loanAmount | currency:'EUR'}} is approved
+  at an interest rate of {{formSubmissionSuccess.interestRate}}
+</div>

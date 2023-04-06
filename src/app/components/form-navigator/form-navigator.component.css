@@ -1,0 +1,10 @@
+.phase-item {
+  color: #005ebe;
+  cursor: pointer;
+}
+.phase-item:hover {
+  color: #b300bd;
+}
+.active {
+  color: #9d00a6;
+}
