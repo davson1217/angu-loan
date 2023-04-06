@@ -4,9 +4,7 @@ import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
     }).compileComponents();
   });
 
@@ -19,13 +17,15 @@ describe('AppComponent', () => {
   it(`should have as title 'easy-loan'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('easy-loan');
+    expect(app.title).toEqual('Easy Loan');
   });
 
-  it('should render title', () => {
+  it('should render header and main components', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('easy-loan app is running!');
+    expect(
+      compiled.querySelector('.application-container header')?.textContent
+    ).toContain('Easy Loan');
   });
 });
